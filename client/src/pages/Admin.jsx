@@ -15,22 +15,22 @@ function Admin() {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/admin/users");
+    const res = await axios.get("https://golf-charity-platform-iys3.onrender.com/admin/users");
     setUsers(res.data);
   };
 
   const fetchScores = async () => {
-    const res = await axios.get("http://localhost:5000/admin/scores");
+    const res = await axios.get("https://golf-charity-platform-iys3.onrender.com/admin/scores");
     setScores(res.data);
   };
 
   const fetchWinners = async () => {
-    const res = await axios.get("http://localhost:5000/admin/winners");
+    const res = await axios.get("https://golf-charity-platform-iys3.onrender.com/admin/winners");
     setWinners(res.data);
   };
 
   const markPayout = async () => {
-    await axios.post("http://localhost:5000/admin/payout");
+    await axios.post("https://golf-charity-platform-iys3.onrender.com/admin/payout");
     alert("Payout completed");
   };
 

@@ -11,7 +11,7 @@ function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchScores = async () => {
-    const res = await axios.get(`http://localhost:5000/scores/${user.id}`);
+    const res = await axios.get(`https://golf-charity-platform-iys3.onrender.com/scores/${user.id}`);
     setScores(res.data);
   };
 
@@ -20,7 +20,7 @@ function Dashboard() {
   }, []);
 
   const handleScore = async () => {
-    await axios.post("http://localhost:5000/add-score", {
+    await axios.post("https://golf-charity-platform-iys3.onrender.com/add-score", {
       user_id: user.id,
       score: Number(score),
       played_at: date
@@ -32,7 +32,7 @@ function Dashboard() {
   };
 
   const handleDraw = async () => {
-    const res = await axios.get("http://localhost:5000/run-draw");
+    const res = await axios.get("https://golf-charity-platform-iys3.onrender.com/run-draw");
     setDrawResult(res.data.drawNumbers);
   };
 

@@ -14,7 +14,7 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
-      await axios.post("http://localhost:5000/signup", form);
+      await axios.post("https://golf-charity-platform-iys3.onrender.com/signup", form);
 
       alert("Signup successful");
 
