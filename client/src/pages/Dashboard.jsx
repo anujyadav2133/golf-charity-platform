@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [score, setScore] = useState("");
   const [date, setDate] = useState("");
   const [scores, setScores] = useState([]);
@@ -11,15 +13,26 @@ function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchScores = async () => {
+    if (!user?.id) return;
     const res = await axios.get(`https://golf-charity-platform-iys3.onrender.com/scores/${user.id}`);
     setScores(res.data);
   };
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     fetchScores();
-  }, []);
+  }, [user, navigate]);
 
   const handleScore = async () => {
+    if (!user?.id) {
+      alert("Session expired, please login again.");
+      navigate("/login");
+      return;
+    }
+
     await axios.post("https://golf-charity-platform-iys3.onrender.com/add-score", {
       user_id: user.id,
       score: Number(score),

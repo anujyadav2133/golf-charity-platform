@@ -15,14 +15,20 @@ function Login() {
     try {
       const res = await axios.post("https://golf-charity-platform-iys3.onrender.com/login", form);
 
+      if (!res.data?.token || !res.data?.user) {
+        const message = res.data?.message || "Login failed, please check your credentials.";
+        alert(message);
+        return;
+      }
+
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login successful");
-
       navigate("/dashboard");
     } catch (error) {
-      alert("Login failed");
+      console.error("Login request error", error);
+      alert("Login failed, please try again later.");
     }
   };
 
