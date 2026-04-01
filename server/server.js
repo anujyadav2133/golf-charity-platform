@@ -135,7 +135,7 @@ app.post("/login", async (req, res) => {
     .eq("email", email);
 
   if (error || users.length === 0) {
-    return res.json({ message: "User not found" });
+    return res.status(404).json({ message: "User not found" });
   }
 
   const user = users[0];
@@ -143,7 +143,7 @@ app.post("/login", async (req, res) => {
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    return res.json({ message: "Invalid password" });
+    return res.status(401).json({ message: "Invalid password" });
   }
 
   const token = jwt.sign(

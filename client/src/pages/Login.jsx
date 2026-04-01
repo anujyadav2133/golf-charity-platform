@@ -13,7 +13,12 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("https://golf-charity-platform-iys3.onrender.com/login", form);
+      const payload = {
+        email: form.email.trim(),
+        password: form.password.trim()
+      };
+
+      const res = await axios.post("https://golf-charity-platform-iys3.onrender.com/login", payload);
 
       if (!res.data?.token || !res.data?.user) {
         const message = res.data?.message || "Login failed, please check your credentials.";
@@ -28,7 +33,11 @@ function Login() {
       navigate("/dashboard");
     } catch (error) {
       console.error("Login request error", error);
-      alert("Login failed, please try again later.");
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        "Login failed, please try again later.";
+      alert(message);
     }
   };
 
